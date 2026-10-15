@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Kiran Shu Resume</title>
+<meta name="description" content="Kiran Shu, applying for Director of Communications at the Western Firearms Association.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Ccircle cx='22' cy='22' r='13' fill='none' stroke='%23F26B21' stroke-width='4'/%3E%3Cpath d='M22 2v12M22 30v12M2 22h12M30 22h12' stroke='%234F2683' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,600;6..96,800&family=Montserrat:wght@400;500;600;700&family=Pinyon+Script&family=Special+Elite&display=swap">
+<style>
+  /* Layout: one phone-width column of scrapbook sections on lavender range paper, the way the WFA's posts look.
+     On wide screens two huge outlined words from their bio drift behind it. */
+  :root {
+    --ink: #1D1840;
+    --paper: #FBFAF7;
+    --tape: #E9E4D6;
+    --lavender: #8C8FD9;
+    --lavender-deep: #7376C7;
+    --purple: #4F2683;
+    --clay: #F26B21;
+    --clay-light: #FF8A47;
+    --script: "Pinyon Script", "Snell Roundhand", cursive;
+    --display: "Bodoni Moda", "Didot", Georgia, serif;
+    --type: "Special Elite", "Courier New", monospace;
+    --body: Montserrat, "Segoe UI", system-ui, sans-serif;
+    --out: cubic-bezier(.16, 1, .3, 1);
+    --gutter-l: max(24px, env(safe-area-inset-left, 0px));
+    --gutter-r: max(24px, env(safe-area-inset-right, 0px));
+    color-scheme: light;
+  }
+  html { background: var(--lavender); overflow-x: hidden; overflow-x: clip; }
+  body {
+    margin: 0; position: relative; background: var(--lavender); color: var(--ink);
+    font: 500 15px/1.55 var(--body); overflow-x: hidden; overflow-x: clip;
+  }
+  /* range-paper grain over everything */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .22; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .11 0 0 0 0 .09 0 0 0 0 .25 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--clay); outline-offset: 3px; }
+
+  .band { position: relative; z-index: 1; }
+  .wrap { max-width: 480px; margin-inline: auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); position: relative; }
+
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: var(--clay); transform-origin: 0 50%; transform: scaleX(0); z-index: 60; }
+
+  /* ---------- backdrop words (wide screens only) ---------- */
+  .backdrop { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: none; flex-direction: column; justify-content: space-around; overflow: hidden; }
+  .backdrop span { font: 800 clamp(120px, 15vw, 240px)/1 var(--display); letter-spacing: .02em; white-space: nowrap; color: transparent; -webkit-text-stroke: 1.5px rgb(251 250 247 / .42); }
+  .backdrop span:last-child { align-self: flex-end; }
+  @media (min-width: 900px) { .backdrop { display: flex; } }
+
+  /* ---------- crosshair cursor (mouse and trackpad only) ---------- */
+  .reticle { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; display: none; opacity: 0; transition: opacity .2s; }
+  html.aim .reticle { display: block; }
+  html.aim, html.aim * { cursor: none !important; }
+  .reticle.on { opacity: 1; }
+  .reticle .gun { position: absolute; left: -24px; top: -24px; width: 48px; height: 48px; }
+  .reticle svg { width: 100%; height: 100%; overflow: visible; display: block; }
+  .reticle .ring { transform-box: fill-box; transform-origin: center; transform: rotate(var(--rot, 0deg)) scale(var(--sc, 1)); }
+  .reticle .halo { stroke: var(--paper); stroke-width: 5; opacity: .7; }
+  .reticle .line { stroke: var(--ink); stroke-width: 2.2; }
+  .reticle .pip { fill: var(--clay); }
+  .reticle.locked .line { stroke: var(--clay); }
+  .reticle.locked .ring { --rot: 45deg; --sc: .7; }
+  /* the ring shows each gun: wide for the shotgun's spread, tight for full auto */
+  .reticle[data-gun="shotgun"] .ring { --sc: 2; }
+  .reticle[data-gun="shotgun"].locked .ring { --sc: 1.4; }
+  .reticle[data-gun="auto"] .ring { --sc: .8; }
+  .reticle .flash { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; border: 2px solid var(--clay); opacity: 0; }
+  .reticle .tag { position: absolute; left: 22px; top: 16px; font: 11px var(--type); letter-spacing: .04em; background: var(--ink); color: var(--paper); padding: 3px 7px; white-space: nowrap; opacity: 0; transform: translateX(-6px); }
+  .reticle.locked .tag { opacity: 1; transform: none; }
+  html.moving .reticle .ring, html.moving .reticle .tag { transition: transform .35s var(--out), opacity .2s; }
+  .hole { position: absolute; z-index: 45; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, var(--ink) 0 30%, rgb(29 24 64 / .45) 33% 46%, rgb(251 250 247 / .7) 49% 56%, transparent 60%); }
+
+  /* ---------- hero ---------- */
+  .hero { padding-block: 56px 40px; text-align: center; overflow: hidden; }
+  .kicker { font: 13px var(--type); letter-spacing: .06em; color: var(--paper); }
+  .name { margin: 0; color: var(--paper); font-weight: 400; }
+  .name .first { display: block; font: 82px/1.1 var(--script); text-shadow: 0 2px 0 rgb(29 24 64 / .18); padding-inline: .15em; }
+  .name .last { display: block; font: 500 88px/.86 var(--display); letter-spacing: .03em; }
+  .role { margin: 24px 0 0; font: 600 15px var(--display); letter-spacing: .14em; color: var(--paper); text-wrap: balance; }
+  .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+  .pill { display: inline-block; background: var(--purple); color: var(--paper); font: 600 12px var(--body); letter-spacing: .04em; padding: 7px 14px; border-radius: 999px; }
+  .both { margin-top: 10px; font: 13px var(--type); }
+
+  .crosshair { position: absolute; right: max(18px, env(safe-area-inset-right, 0px)); top: 150px; width: 46px; height: 46px; color: var(--paper); }
+  html.aim .crosshair { display: none; }
+  .clay { position: absolute; left: 14px; top: 118px; width: 72px; height: 48px; border: 0; padding: 0; background: none; cursor: crosshair; }
+  .clay svg { width: 100%; height: 100%; display: block; }
+  .shard { position: absolute; left: 50%; top: 50%; width: 14px; height: 9px; margin: -4px 0 0 -7px; background: var(--clay); border: 1.5px solid var(--ink); border-radius: 40% 60% 30% 50%; pointer-events: none; }
+  .hint { position: absolute; left: 20px; top: 172px; font: 12px var(--type); color: var(--ink); opacity: .75; }
+
+  /* ---------- ticker ---------- */
+  .ticker { background: var(--ink); color: var(--paper); transform: rotate(-2deg); margin: 6px -4% 0; padding-block: 12px; overflow: hidden; box-shadow: 0 8px 20px rgb(29 24 64 / .25); }
+  .track { display: flex; align-items: center; gap: 22px; width: max-content; padding-left: 22px; }
+  .track span { font: 600 22px/1 var(--display); letter-spacing: .1em; white-space: nowrap; }
+  .track i { flex: none; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--clay); position: relative; }
+  .track i::before, .track i::after { content: ""; position: absolute; background: var(--clay); left: 50%; top: 50%; transform: translate(-50%, -50%); }
+  .track i::before { width: 22px; height: 2px; }
+  .track i::after { width: 2px; height: 22px; }
+
+  .intro { padding-block: 48px 48px; text-align: center; }
+  .intro p { margin: 0; font-size: 17px; line-height: 1.6; text-wrap: pretty; }
+
+  /* ---------- selected work ---------- */
+  .work { overflow-x: hidden; overflow-x: clip; }
+  .script-head { font: 46px/1.1 var(--script); color: var(--paper); margin: 0; padding-inline: .1em; }
+  .work-title { margin: 4px 0 2px; font: 600 31px/1.1 var(--display); }
+  .work-title a { text-decoration: none; background: linear-gradient(var(--clay), var(--clay)) 0 100% / 0 3px no-repeat; transition: background-size .5s var(--out); }
+  .work-title a:hover { background-size: 100% 3px; }
+  .meta { font: 13px var(--type); }
+
+  .board { position: relative; height: 372px; margin-top: 12px; }
+  .slot { position: absolute; }
+  .slot:hover, .slot:focus-within { z-index: 5; }
+  .s-home  { left: -4px; top: 26px; width: 58%; }
+  .s-shop  { right: -6px; top: 54px; width: 52%; }
+  .s-books { left: 20%; top: 178px; width: 56%; z-index: 2; }
+  .polaroid {
+    display: block; background: var(--paper); padding: 9px 9px 0; text-decoration: none;
+    box-shadow: 0 12px 26px rgb(29 24 64 / .26); transform: rotate(var(--r));
+    transition: transform .45s var(--out), box-shadow .45s var(--out);
+  }
+  .polaroid img { display: block; width: 100%; height: auto; aspect-ratio: 1.45; object-fit: cover; object-position: top; background: var(--tape); }
+  .polaroid span { display: block; font: 12px var(--type); padding: 8px 2px 14px; }
+  .polaroid:hover, .polaroid:focus-visible { transform: rotate(0deg) translateY(-6px) scale(1.03); box-shadow: 0 20px 36px rgb(29 24 64 / .3); }
+  .tape { position: absolute; left: 41%; top: 168px; width: 76px; height: 21px; background: var(--tape); opacity: .93; transform: rotate(-4deg); z-index: 3; transform-origin: 0 50%; box-shadow: 0 1px 2px rgb(29 24 64 / .12); }
+
+  .points { list-style: none; margin: 14px 0 0; padding: 0 0 52px; display: grid; gap: 12px; }
+  .points li { display: grid; grid-template-columns: 10px 1fr; gap: 12px; align-items: start; }
+  .points li::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--clay); margin-top: 7px; box-shadow: 0 0 0 1.5px var(--ink); }
+
+  /* ---------- stat (opens like looking down a scope) ---------- */
+  .stat { background: var(--purple); color: var(--paper); text-align: center; padding-block: 60px 64px; overflow: hidden; }
+  .stat .wrap { z-index: 1; }
+  .stat .meta { color: var(--paper); opacity: .88; }
+  .count { font: 800 66px/1.1 var(--display); letter-spacing: -.02em; color: var(--clay); font-variant-numeric: tabular-nums; margin-top: 6px; }
+  .views { font: 42px/1 var(--script); }
+  .stat p { margin: 18px auto 0; max-width: 32ch; }
+  .scope { position: absolute; inset: 0; pointer-events: none; display: none; }
+  html.moving .scope { display: block; }
+  .scope span { position: absolute; background: var(--paper); opacity: .45; }
+  .scope .h { left: 0; right: 0; top: 50%; height: 1.5px; }
+  .scope .v { top: 0; bottom: 0; left: 50%; width: 1.5px; }
+  .scope .o { left: 50%; top: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%; background: none; border: 2px solid var(--paper); }
+
+  /* ---------- leadership ---------- */
+  .caps { margin: 0; font: 600 31px/1.1 var(--display); letter-spacing: .03em; color: var(--paper); }
+  .roles { padding-block: 54px 26px; }
+  .role-list { position: relative; display: grid; gap: 26px; margin-top: 22px; padding-left: 30px; }
+  .rail { position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: var(--ink); opacity: .55; transform-origin: 50% 0; }
+  .role-list > div:not(.rail) { position: relative; }
+  .dot { position: absolute; left: -30px; top: 3px; width: 14px; height: 14px; border-radius: 50%; background: var(--clay); box-shadow: 0 0 0 2px var(--ink), 0 0 0 5px var(--lavender); }
+  .label { display: inline-block; background: var(--tape); padding: 5px 10px; font: 12px var(--type); transform: rotate(var(--r, -1.5deg)); box-shadow: 0 1px 2px rgb(29 24 64 / .15); }
+  .role-list h3 { margin: 8px 0 2px; font: 700 17px/1.35 var(--body); text-wrap: balance; }
+  .role-list p { margin: 0; text-wrap: pretty; }
+
+  .skills { padding-block: 30px 54px; }
+  .skills .pills { justify-content: flex-start; margin-top: 16px; }
+  .skills .pill { font-size: 13px; padding: 8px 14px; }
+  .pill.hot { background: var(--clay); color: var(--ink); }
+
+  /* ---------- contact ---------- */
+  .contact { background: var(--lavender-deep); text-align: center; padding-block: 50px 80px; overflow: hidden; }
+  .contact .script-head { font-size: 56px; }
+  .email { display: inline-flex; align-items: center; gap: 10px; margin-top: 8px; flex-wrap: wrap; justify-content: center; }
+  .email b { font-size: 16px; font-weight: 600; user-select: all; }
+  .copy { font: 600 12px var(--body); letter-spacing: .04em; color: var(--paper); background: var(--purple); border: 0; border-radius: 999px; padding: 6px 12px; cursor: pointer; }
+  .contact .line { margin-top: 4px; }
+  .contact .label { margin-top: 20px; padding: 8px 14px; font-size: 13px; --r: -2deg; }
+  .splat { position: absolute; border-radius: 50%; background: var(--paper); opacity: .8; }
+
+  .casing { position: fixed; left: 0; top: 0; z-index: 85; width: 4px; height: 10px; border-radius: 1px; pointer-events: none; background: linear-gradient(90deg, #B9802A, #F0C060 45%, #B9802A); }
+
+  /* ---------- corner controls: sound and motion on the right, the gun picker on the left ---------- */
+  .toggles { position: fixed; z-index: 70; right: max(14px, env(safe-area-inset-right, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .toggle, .gun-pill {
+    font: 12px var(--type); color: var(--ink); background: var(--tape); border: 0; padding: 8px 12px; cursor: pointer;
+    box-shadow: 0 4px 12px rgb(29 24 64 / .2); transform: rotate(-2deg);
+  }
+  .toggle:nth-child(2) { transform: rotate(1.5deg); }
+  .hud { position: fixed; z-index: 70; left: max(14px, env(safe-area-inset-left, 0px)); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+  .gun-pill { display: inline-flex; align-items: center; gap: 8px; transform: rotate(2deg); }
+  .gun-icon { width: 18px; height: 18px; flex: none; }
+  .gun-panel {
+    position: absolute; left: 0; bottom: calc(100% + 10px); display: none; min-width: 200px; padding: 6px; gap: 2px;
+    background: var(--ink); color: var(--paper); border-radius: 10px; box-shadow: 0 14px 30px rgb(29 24 64 / .35); transform-origin: 24px 100%;
+  }
+  .gun-panel::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 12px; } /* keeps the gap in the hover zone */
+  .hud.open .gun-panel { display: grid; }
+  .gun-panel button {
+    display: grid; grid-template-columns: 22px 1fr; column-gap: 10px; align-items: center; text-align: left;
+    font: 600 13px var(--body); color: inherit; background: none; border: 0; border-radius: 6px; padding: 8px 10px; cursor: pointer;
+  }
+  .gun-panel button small { grid-column: 2; font: 11px var(--type); opacity: .72; }
+  .gun-panel button:hover { background: rgb(251 250 247 / .08); }
+  .gun-panel button[aria-checked="true"] { background: var(--purple); }
+  .gun-panel .gun-icon { grid-row: span 2; color: var(--clay); }
+
+  /* hide the hero for the moment before its intro starts, so it doesn't flash in twice */
+  html.pre .hero .wrap { opacity: 0; }
+</style>
+<script>
+  // the page's own switch wins over the system setting, which many people have off without knowing
+  (() => {
+    let saved = null;
+    try { saved = localStorage.getItem("kiran-resume-motion"); } catch (e) {}
+    const on = saved ? saved === "on" : !matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const root = document.documentElement;
+    root.classList.toggle("moving", on);
+    if (on) { root.classList.add("pre"); setTimeout(() => root.classList.remove("pre"), 3000); }
+  })();
+</script>
+</head>
+<body>
+
+<div id="progress" aria-hidden="true"></div>
+<div class="backdrop" aria-hidden="true"><span>ACCURACY</span><span>RESPONSIBILITY</span></div>
+
+<div class="reticle" id="reticle" aria-hidden="true">
+  <div class="gun">
+    <svg viewBox="0 0 48 48" fill="none">
+      <g class="ring" stroke-linecap="round">
+        <circle class="halo" cx="24" cy="24" r="13"/>
+        <path class="halo" d="M24 3v10M24 35v10M3 24h10M35 24h10"/>
+        <circle class="line" cx="24" cy="24" r="13"/>
+        <path class="line" d="M24 3v10M24 35v10M3 24h10M35 24h10"/>
+      </g>
+      <circle class="pip" cx="24" cy="24" r="2"/>
+    </svg>
+    <span class="flash"></span>
+  </div>
+  <span class="tag">open</span>
+</div>
+
+<header class="band hero">
+  <div class="wrap">
+    <div class="kicker">a resume for the WFA</div>
+    <h1 class="name"><span class="first">Kiran</span><span class="last">SHU</span></h1>
+    <p class="role">DIRECTOR OF COMMUNICATIONS</p>
+    <div class="pills"><span class="pill">VIDEOS / PHOTOS</span><span class="pill">CONTENT / POSTS</span></div>
+    <div class="both">↑ I can do both</div>
+
+    <svg class="crosshair" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="22" r="13" stroke="currentColor" stroke-width="2.5"/><path d="M22 2v12M22 30v12M2 22h12M30 22h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+    <button class="clay" id="clay" type="button" data-aim="shoot" aria-label="Clay target. Tap to shoot it.">
+      <svg viewBox="0 0 58 40" fill="none" aria-hidden="true"><path d="M2 26h14M6 32h12M10 20h8" stroke="#1D1840" stroke-width="2" stroke-linecap="round" opacity=".55"/><ellipse cx="38" cy="22" rx="17" ry="11" fill="#F26B21"/><ellipse cx="38" cy="19" rx="11" ry="5.5" fill="#FF8A47"/><ellipse cx="38" cy="22" rx="17" ry="11" stroke="#1D1840" stroke-width="2"/></svg>
+    </button>
+    <div class="hint" id="hint">pull!</div>
+  </div>
+</header>
+
+<div class="band ticker" aria-hidden="true">
+  <div class="track" id="track"><span>VIDEOS</span><i></i><span>PHOTOS</span><i></i><span>CONTENT</span><i></i><span>POSTS</span><i></i></div>
+</div>
+
+<section class="band intro">
+  <div class="wrap">
+    <p>I design and build things people use: a live club website, short videos with <b>83,000+ views</b>, and posters for national conferences.</p>
+  </div>
+</section>
+
+<section class="band work" aria-labelledby="work">
+  <div class="wrap">
+    <p class="script-head">Selected work</p>
+    <h2 class="work-title" id="work"><a href="https://kidshealthshelf.org" target="_blank" rel="noopener" data-aim="visit">kidshealthshelf.org</a></h2>
+    <div class="meta">designer + developer · Kids Health Shelf · Oct 2026</div>
+
+    <div class="board">
+      <div class="slot s-home"><a class="polaroid" style="--r:-5deg" href="https://kidshealthshelf.org" target="_blank" rel="noopener" data-aim="view"><img src="img/khs-index.png" alt="Kids Health Shelf home page: Changing perspectives, one page at a time." width="1280" height="860"><span>home page</span></a></div>
+      <div class="slot s-shop"><a class="polaroid" style="--r:6deg" href="https://kidshealthshelf.org/shop.html" target="_blank" rel="noopener" data-aim="view"><img src="img/khs-shop.png" alt="The Kids Health Shelf sticker and merch shop." width="1280" height="860"><span>the shop</span></a></div>
+      <div class="slot s-books"><a class="polaroid" style="--r:-1.5deg" href="https://kidshealthshelf.org/books.html" target="_blank" rel="noopener" data-aim="view"><img src="img/khs-books.png" alt="The book shelf page: Pull a book off the shelf." width="1280" height="860"><span>the book shelf</span></a></div>
+      <div class="tape" aria-hidden="true"></div>
+    </div>
+
+    <ul class="points">
+      <li>Designed it in Paper, then hand-built all six pages in HTML, CSS and JavaScript.</li>
+      <li>Turned the club's picture books into a shelf you pull from and a flip-book you read.</li>
+      <li>Built a merch shop and donation boxes, paid through Stripe.</li>
+      <li>Wrote the copy and a press page (CBC, Western Gazette).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band stat" aria-label="ChessProofs">
+  <div class="scope" aria-hidden="true"><span class="h"></span><span class="v"></span><span class="o"></span></div>
+  <div class="wrap">
+    <div class="meta">ChessProofs · Instagram · Aug 2026 – now</div>
+    <div class="count" id="count" data-to="83000">83,000+</div>
+    <div class="views">views</div>
+    <p>in two months, on short chess lessons I plan, film and edit myself.</p>
+  </div>
+</section>
+
+<section class="band roles" aria-labelledby="lead">
+  <div class="wrap">
+    <h2 class="caps" id="lead">LEADERSHIP</h2>
+    <div class="role-list">
+      <div class="rail" aria-hidden="true"></div>
+      <div>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label">SEP 2026 – NOW</span>
+        <h3>VP of Sponsorship · Kids Health Shelf</h3>
+        <p>Lead sponsorship and fundraising, and set up online giving for Children's Health Foundation.</p>
+      </div>
+      <div>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label" style="--r:1deg">SEP 2025 – NOW</span>
+        <h3>Assistant VP · Western On Ice</h3>
+        <p>Plan skating events and socials, help run the AGM, and welcome new skaters.</p>
+      </div>
+      <div>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label" style="--r:-1deg">SEP 2024 – NOW</span>
+        <h3>Outreach Volunteer · Tabitha's Daughters</h3>
+        <p>Helped create the charity's website; run events and awareness campaigns.</p>
+      </div>
+      <div>
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label" style="--r:1.5deg">APR 2024 – NOW</span>
+        <h3>Research Student · Parkwood Institute</h3>
+        <p>Designed and presented posters at two national conferences; co-author of a published paper.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band skills" aria-labelledby="kit">
+  <div class="wrap">
+    <h2 class="caps" id="kit">TOOLKIT</h2>
+    <div class="pills">
+      <span class="pill">Paper</span>
+      <span class="pill">Layout + type</span>
+      <span class="pill">Posters</span>
+      <span class="pill hot">Short-form video</span>
+      <span class="pill">Instagram</span>
+      <span class="pill">Plain-language writing</span>
+      <span class="pill hot">HTML · CSS · JS</span>
+      <span class="pill">Stripe</span>
+    </div>
+  </div>
+</section>
+
+<footer class="band contact">
+  <span class="splat" style="width:9px;height:9px;left:12%;top:28%" aria-hidden="true"></span>
+  <span class="splat" style="width:5px;height:5px;left:17%;top:36%" aria-hidden="true"></span>
+  <span class="splat" style="width:12px;height:12px;right:10%;top:62%" aria-hidden="true"></span>
+  <span class="splat" style="width:6px;height:6px;right:16%;top:70%" aria-hidden="true"></span>
+  <div class="wrap">
+    <p class="script-head">Let's talk</p>
+    <div class="email"><b id="email">kiranjasonshu@gmail.com</b><button class="copy" id="copy" type="button" data-aim="copy">Copy</button></div>
+    <div class="line">226-973-9699 · London, ON</div>
+    <span class="label">BMSc, Western · 2027 · Dean's Honour List</span>
+  </div>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="g-pistol" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="10" r="2.4" fill="currentColor"/></symbol>
+  <symbol id="g-shotgun" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><g fill="currentColor"><circle cx="10" cy="10" r="1.5"/><circle cx="6.5" cy="7.5" r="1.5"/><circle cx="13.5" cy="7" r="1.5"/><circle cx="7" cy="13.5" r="1.5"/><circle cx="13" cy="13" r="1.5"/></g></symbol>
+  <symbol id="g-auto" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><g fill="currentColor"><circle cx="6" cy="10" r="1.6"/><circle cx="10" cy="10" r="1.6"/><circle cx="14" cy="10" r="1.6"/></g></symbol>
+</svg>
+
+<div class="hud" id="hud" hidden>
+  <div class="gun-panel" id="gun-panel" role="radiogroup" aria-label="Pick a gun">
+    <button type="button" role="radio" data-gun="pistol" data-aim="pick"><svg class="gun-icon"><use href="#g-pistol"/></svg>Pistol<small>one shot per click</small></button>
+    <button type="button" role="radio" data-gun="shotgun" data-aim="pick"><svg class="gun-icon"><use href="#g-shotgun"/></svg>Shotgun<small>a spread of pellets</small></button>
+    <button type="button" role="radio" data-gun="auto" data-aim="pick"><svg class="gun-icon"><use href="#g-auto"/></svg>Full auto<small>hold to fire</small></button>
+  </div>
+  <button class="gun-pill" id="gun-pill" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="gun-panel" data-aim="guns"><svg class="gun-icon"><use href="#g-pistol"/></svg><span>Pistol</span></button>
+</div>
+
+<div class="toggles">
+  <button class="toggle" id="sound" type="button" aria-pressed="true" data-aim="switch">Sound: on</button>
+  <button class="toggle" id="motion" type="button" aria-pressed="true" data-aim="switch">Motion: on</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrambleTextPlugin.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/Physics2DPlugin.min.js"></script>
+<script>
+(() => {
+  const root = document.documentElement;
+  const KEY = "kiran-resume-motion";
+  const plugins = [window.ScrollTrigger, window.SplitText, window.ScrambleTextPlugin, window.Physics2DPlugin];
+  // if the animation library can't load, the page is simply still
+  const hasGsap = !!window.gsap && plugins.every(Boolean);
+  if (hasGsap) gsap.registerPlugin(...plugins);
+  const fine = matchMedia("(pointer: fine)").matches;
+  const toggle = document.getElementById("motion");
+  let moving = hasGsap && root.classList.contains("moving");
+  let ctx = null;
+
+  // ticker: enough copies of the four words to run past the widest screen, twice over for a seamless loop
+  const track = document.getElementById("track");
+  const set = track.innerHTML;
+  track.innerHTML = set.repeat(8);
+
+  const count = document.getElementById("count");
+  const fmt = n => n.toLocaleString("en-CA") + "+";
+
+  function setMotion(on, remember) {
+    moving = on && hasGsap;
+    root.classList.toggle("moving", moving);
+    root.classList.remove("pre");
+    toggle.textContent = "Motion: " + (moving ? "on" : "off");
+    toggle.setAttribute("aria-pressed", String(moving));
+    if (remember) try { localStorage.setItem(KEY, on ? "on" : "off"); } catch (e) {}
+    if (ctx) { ctx.revert(); ctx = null; }
+    if (moving) ctx = gsap.context(build);
+  }
+  toggle.hidden = !hasGsap;
+  toggle.addEventListener("click", () => setMotion(!moving, true));
+
+  function build() {
+    const ease = "expo.out";
+    const cleanups = [];
+
+    // hero: the name writes itself, SHU rises letter by letter, the role decodes like a typewriter
+    const shu = new SplitText(".name .last", { type: "chars", mask: "chars" });
+    const role = document.querySelector(".hero .role");
+    const clay = document.getElementById("clay");
+    gsap.timeline({ defaults: { ease } })
+      .from(".kicker", { opacity: 0, y: 10, duration: .7 })
+      .fromTo(".name .first", { clipPath: "inset(-30% 100% -30% 0)" }, { clipPath: "inset(-30% -10% -30% 0)", duration: 1.4, ease: "power2.inOut" }, .1)
+      .from(shu.chars, { yPercent: 110, rotate: 10, stagger: .09, duration: 1.1 }, .55)
+      .from(role, { opacity: 0, duration: .01 }, .95)
+      .to(role, { scrambleText: { text: role.textContent, chars: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", revealDelay: .25, speed: .5 }, duration: 1.3, ease: "none" }, .95)
+      .from(".hero .pill", { scale: .4, opacity: 0, stagger: .1, duration: .8 }, 1.6)
+      .from(".both", { opacity: 0, y: 8, duration: .6 }, 1.9)
+      .from(".crosshair", { rotate: -90, scale: .4, opacity: 0, duration: 1 }, .4)
+      .from(clay, { x: -190, rotate: -40, duration: 1.3, ease: "power2.out" }, .2)
+      .from(clay, { y: 110, duration: 1.3, ease: "power4.out" }, .2)
+      .from("#hint", { opacity: 0, duration: .6 }, 2.1);
+    gsap.to("#clay svg", { y: -6, rotate: -4, duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: -1 });
+
+    // the hero drifts up and fades as you scroll past it
+    gsap.to(".hero .wrap", { yPercent: 22, opacity: .3, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+
+    // wide screens: the backdrop words slide opposite ways
+    const [w1, w2] = document.querySelectorAll(".backdrop span");
+    gsap.fromTo(w1, { xPercent: 5 }, { xPercent: -30, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: .6 } });
+    gsap.fromTo(w2, { xPercent: -5 }, { xPercent: 30, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: .6 } });
+
+    // ticker: runs on its own, speeds up and leans with how fast you scroll, and turns round when you scroll up
+    const loop = gsap.to(track, { xPercent: -50, ease: "none", duration: 26, repeat: -1 });
+    loop.totalTime(loop.duration() * 50);
+    const lean = gsap.quickTo(".ticker", "skewX", { duration: .5, ease: "power3" });
+    let settle;
+    ScrollTrigger.create({
+      onUpdate(self) {
+        const v = self.getVelocity();
+        const dir = self.direction;
+        gsap.to(loop, { timeScale: dir * gsap.utils.clamp(1, 6, Math.abs(v) / 250), duration: .2, overwrite: true });
+        lean(gsap.utils.clamp(-10, 10, v / -180));
+        clearTimeout(settle);
+        settle = setTimeout(() => { gsap.to(loop, { timeScale: dir, duration: 1, overwrite: true }); lean(0); }, 120);
+      }
+    });
+    cleanups.push(() => clearTimeout(settle));
+
+    // the intro lights up word by word as you read down
+    const words = new SplitText(".intro p", { type: "words" });
+    gsap.from(words.words, { opacity: .15, stagger: .1, ease: "none", scrollTrigger: { trigger: ".intro", start: "top 85%", end: "bottom 50%", scrub: true } });
+
+    // script headings write themselves; capital headings rise out of a slot
+    gsap.utils.toArray(".script-head").forEach(el => gsap.fromTo(el,
+      { clipPath: "inset(-30% 100% -30% 0)" },
+      { clipPath: "inset(-30% -10% -30% 0)", duration: 1.3, ease: "power2.inOut", scrollTrigger: { trigger: el, start: "top 88%" } }));
+    gsap.utils.toArray(".caps, .work-title a").forEach(el => {
+      const s = new SplitText(el, { type: "chars", mask: "chars" });
+      gsap.from(s.chars, { yPercent: 110, stagger: .035, duration: .9, ease, scrollTrigger: { trigger: el, start: "top 88%" } });
+    });
+    gsap.from(".work .meta", { opacity: 0, y: 10, duration: .8, ease, scrollTrigger: { trigger: ".work .meta", start: "top 90%" } });
+
+    // the three polaroids are dealt onto the board as you scroll, then taped down
+    gsap.timeline({ defaults: { ease: "power3.out" }, scrollTrigger: { trigger: ".board", start: "top 95%", end: "center 50%", scrub: .8 } })
+      .from(".s-home", { x: -280, y: 70, rotate: -38, opacity: 0 }, 0)
+      .from(".s-shop", { x: 280, y: 40, rotate: 42, opacity: 0 }, .25)
+      .from(".s-books", { y: 260, rotate: -24, opacity: 0 }, .5)
+      .from(".board .tape", { scaleX: 0 }, .9);
+    gsap.from(".points li", { x: -24, opacity: 0, stagger: .1, duration: .9, ease, scrollTrigger: { trigger: ".points", start: "top 85%" } });
+
+    // the purple band opens out of a scope, then 83,000 counts up
+    const scope = { trigger: ".stat", start: "top 92%", end: "top 15%", scrub: true };
+    gsap.fromTo(".stat", { clipPath: "circle(16% at 50% 50%)" }, { clipPath: "circle(75% at 50% 50%)", ease: "none", scrollTrigger: scope });
+    gsap.to(".scope", { opacity: 0, scale: 2.2, ease: "none", scrollTrigger: scope });
+    const to = +count.dataset.to, n = { v: 0 };
+    count.textContent = fmt(0);
+    gsap.to(n, {
+      v: to, duration: 2.2, ease,
+      onUpdate: () => { count.textContent = fmt(Math.round(n.v)); },
+      onComplete: () => gsap.fromTo(count, { scale: 1.12 }, { scale: 1, duration: .7, ease }),
+      scrollTrigger: { trigger: count, start: "top 70%" }
+    });
+    gsap.from(".views, .stat p", { opacity: 0, y: 14, stagger: .15, duration: .9, ease, scrollTrigger: { trigger: count, start: "top 70%" } });
+    cleanups.push(() => { count.textContent = fmt(to); });
+
+    // leadership: the line draws down as you scroll; each stop pops in when it reaches it
+    gsap.from(".rail", { scaleY: 0, ease: "none", scrollTrigger: { trigger: ".role-list", start: "top 75%", end: "bottom 60%", scrub: true } });
+    gsap.utils.toArray(".role-list > div:not(.rail)").forEach(r => {
+      gsap.timeline({ defaults: { ease }, scrollTrigger: { trigger: r, start: "top 80%" } })
+        .from(r.querySelector(".dot"), { scale: 0, duration: .6 })
+        .from(r.querySelector(".label"), { scale: .5, rotate: -18, opacity: 0, duration: .8 }, .05)
+        .from(r.querySelectorAll("h3, p"), { y: 16, opacity: 0, stagger: .08, duration: .8 }, .12);
+    });
+
+    // toolkit pills get tossed onto the table
+    gsap.from(".skills .pill", {
+      y: -170, x: () => gsap.utils.random(-70, 70), rotate: () => gsap.utils.random(-50, 50), opacity: 0,
+      duration: 1.2, stagger: .06, ease, scrollTrigger: { trigger: ".skills .pills", start: "top 88%" }
+    });
+
+    // contact: paint splats land, then the details rise
+    gsap.from(".splat", { scale: 0, stagger: .08, duration: .7, ease, scrollTrigger: { trigger: ".contact", start: "top 80%" } });
+    gsap.from(".contact .email, .contact .line, .contact .label", { y: 18, opacity: 0, stagger: .1, duration: .9, ease, scrollTrigger: { trigger: ".contact", start: "top 75%" } });
+
+    // mouse only: pills and buttons lean towards the pointer
+    if (fine) document.querySelectorAll(".skills .pill, .copy, .hero .pill").forEach(el => {
+      const xTo = gsap.quickTo(el, "x", { duration: .5, ease: "power3" }), yTo = gsap.quickTo(el, "y", { duration: .5, ease: "power3" });
+      const move = e => { const r = el.getBoundingClientRect(); xTo((e.clientX - r.left - r.width / 2) * .35); yTo((e.clientY - r.top - r.height / 2) * .35); };
+      const leave = () => { xTo(0); yTo(0); };
+      el.addEventListener("pointermove", move);
+      el.addEventListener("pointerleave", leave);
+      cleanups.push(() => { el.removeEventListener("pointermove", move); el.removeEventListener("pointerleave", leave); });
+    });
+
+    addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+    return () => cleanups.forEach(f => f());
+  }
+
+  // split text only once the fonts are in, so letters measure right
+  const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
+  Promise.race([fonts, new Promise(r => setTimeout(r, 1500))]).then(() => setMotion(moving, false));
+
+  // ---------- sound: every shot is made on the spot with Web Audio (no sound files) ----------
+  const soundBtn = document.getElementById("sound");
+  let soundOn = true;
+  try { soundOn = localStorage.getItem("kiran-resume-sound") !== "off"; } catch (e) {}
+  function setSound(on, remember) {
+    soundOn = on;
+    soundBtn.textContent = "Sound: " + (on ? "on" : "off");
+    soundBtn.setAttribute("aria-pressed", String(on));
+    if (remember) try { localStorage.setItem("kiran-resume-sound", on ? "on" : "off"); } catch (e) {}
+  }
+  soundBtn.addEventListener("click", () => setSound(!soundOn, true));
+  setSound(soundOn, false);
+
+  let actx = null, noise, master;
+  function audio() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!actx) {
+      actx = new AC();
+      noise = actx.createBuffer(1, actx.sampleRate, actx.sampleRate);
+      const d = noise.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+      // the compressor keeps full auto from clipping
+      const comp = actx.createDynamicsCompressor();
+      master = actx.createGain();
+      master.gain.value = .5;
+      master.connect(comp).connect(actx.destination);
+    }
+    if (actx.state === "suspended") actx.resume();
+    return actx;
+  }
+  // a burst of filtered noise is the crack; a falling sine under it is the boom
+  function burst(t, dur, from, to, gain, type = "lowpass") {
+    const src = actx.createBufferSource(), f = actx.createBiquadFilter(), g = actx.createGain();
+    src.buffer = noise;
+    f.type = type;
+    f.frequency.setValueAtTime(from, t);
+    f.frequency.exponentialRampToValueAtTime(to, t + dur);
+    g.gain.setValueAtTime(gain, t);
+    g.gain.exponentialRampToValueAtTime(.001, t + dur);
+    src.connect(f).connect(g).connect(master);
+    src.start(t, Math.random() * .5);
+    src.stop(t + dur);
+  }
+  function boom(t, dur, gain) {
+    const o = actx.createOscillator(), g = actx.createGain();
+    o.frequency.setValueAtTime(150, t);
+    o.frequency.exponentialRampToValueAtTime(40, t + dur);
+    g.gain.setValueAtTime(gain, t);
+    g.gain.exponentialRampToValueAtTime(.001, t + dur);
+    o.connect(g).connect(master);
+    o.start(t);
+    o.stop(t + dur);
+  }
+  const SOUNDS = {
+    pistol: t => { burst(t, .25, 4000, 400, 1); boom(t, .18, .8); },
+    shotgun: t => { burst(t, .55, 2500, 150, 1.2); boom(t, .3, 1.2); burst(t + .34, .05, 2600, 1800, .35, "highpass"); burst(t + .48, .06, 2200, 1500, .4, "highpass"); },
+    auto: t => { burst(t, .1, 5000, 800, .7); boom(t, .08, .45); },
+    clay: t => { burst(t, .14, 3200, 2000, .8, "bandpass"); },
+    rack: t => { burst(t, .04, 3000, 2000, .4, "highpass"); burst(t + .1, .05, 2400, 1600, .45, "highpass"); },
+  };
+  function play(name) {
+    if (!soundOn || !audio()) return;
+    SOUNDS[name](actx.currentTime);
+  }
+
+  // ---------- guns: pistol, shotgun spread, full auto ----------
+  const GUNS = {
+    pistol: { name: "Pistol", hole: 16, kick: 1.4, spin: -8 },
+    shotgun: { name: "Shotgun", hole: 9, kick: 1.8, spin: -16, pellets: 8, spread: 28, pump: 650 },
+    auto: { name: "Full auto", hole: 11, kick: 1.15, spin: -4, every: 90 },
+  };
+  let gun = "pistol";
+  try { if (GUNS[localStorage.getItem("kiran-resume-gun")]) gun = localStorage.getItem("kiran-resume-gun"); } catch (e) {}
+  const ret = document.getElementById("reticle");
+  const hud = document.getElementById("hud"), gunPill = document.getElementById("gun-pill"), gunPanel = document.getElementById("gun-panel");
+
+  function setGun(name, remember) {
+    gun = name;
+    ret.dataset.gun = name;
+    gunPill.querySelector("use").setAttribute("href", "#g-" + name);
+    gunPill.querySelector("span").textContent = GUNS[name].name;
+    gunPanel.querySelectorAll("[data-gun]").forEach(b => b.setAttribute("aria-checked", String(b.dataset.gun === name)));
+    if (remember) { play("rack"); try { localStorage.setItem("kiran-resume-gun", name); } catch (e) {} }
+  }
+  setGun(gun, false);
+
+  // the gun picker is a hover-pop: it grows out of its pill on hover (or a tap), folds back 200 ms after
+  // the pointer leaves, and stays open once you click inside it until you click elsewhere or press Esc
+  let hudTimer, pinned = false;
+  function openHud() {
+    clearTimeout(hudTimer);
+    if (hud.classList.contains("open")) return;
+    hud.classList.add("open");
+    gunPill.setAttribute("aria-expanded", "true");
+    if (moving) gsap.fromTo(gunPanel, { scale: .5, opacity: 0, y: 12 }, { scale: 1, opacity: 1, y: 0, duration: .35, ease: "expo.out", overwrite: true });
+    else gsap.fromTo(gunPanel, { opacity: 0 }, { opacity: 1, duration: .15, overwrite: true });
+  }
+  function closeHud(force) {
+    if (!hud.classList.contains("open") || (pinned && !force)) return;
+    pinned = false;
+    gunPill.setAttribute("aria-expanded", "false");
+    const done = () => { hud.classList.remove("open"); gsap.set(gunPanel, { clearProps: "all" }); };
+    if (moving) gsap.to(gunPanel, { scale: .5, opacity: 0, y: 12, duration: .2, ease: "power2.in", overwrite: true, onComplete: done });
+    else gsap.to(gunPanel, { opacity: 0, duration: .12, overwrite: true, onComplete: done });
+  }
+  gunPill.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") openHud(); });
+  gunPill.addEventListener("click", () => {
+    if (hud.classList.contains("open") && pinned) return closeHud(true);
+    openHud();
+    pinned = true;
+  });
+  hud.addEventListener("pointerenter", () => clearTimeout(hudTimer));
+  hud.addEventListener("pointerleave", () => { hudTimer = setTimeout(() => closeHud(false), 200); });
+  gunPanel.addEventListener("click", e => {
+    pinned = true;
+    const b = e.target.closest("[data-gun]");
+    if (b) setGun(b.dataset.gun, true);
+  });
+  document.addEventListener("pointerdown", e => { if (!hud.contains(e.target)) closeHud(true); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && hud.classList.contains("open")) { closeHud(true); gunPill.focus(); } });
+
+  // ---------- firing ----------
+  const gunEl = ret.querySelector(".gun"), flash = ret.querySelector(".flash");
+  const clay = document.getElementById("clay"), hint = document.getElementById("hint"), claySvg = clay.querySelector("svg");
+  let lastPump = 0;
+
+  function hitsClay(x, y) {
+    if (clay.dataset.broken) return false;
+    const r = clay.getBoundingClientRect();
+    return x > r.left - 4 && x < r.right + 4 && y > r.top - 4 && y < r.bottom + 4;
+  }
+  function hole(x, y, size) {
+    const h = document.createElement("span");
+    h.className = "hole";
+    h.style.cssText = `left:${x + scrollX}px;top:${y + scrollY}px;width:${size}px;height:${size}px;margin:${-size / 2}px 0 0 ${-size / 2}px`;
+    document.body.appendChild(h);
+    const all = document.querySelectorAll(".hole");
+    if (all.length > 90) all[0].remove();
+    if (!moving) return setTimeout(() => h.remove(), 4000);
+    gsap.timeline({ onComplete: () => h.remove() })
+      .from(h, { scale: 0, duration: .2, ease: "expo.out" })
+      .to(h, { opacity: 0, duration: 1 }, 3);
+  }
+  function casing(x, y) {
+    const c = document.createElement("span");
+    c.className = "casing";
+    document.body.appendChild(c);
+    gsap.set(c, { x: x + 10, y: y - 6 });
+    gsap.to(c, {
+      physics2D: { velocity: gsap.utils.random(220, 360), angle: gsap.utils.random(-80, -50), gravity: 1400 },
+      rotate: gsap.utils.random(360, 900), opacity: 0, duration: .9, ease: "power2.in", onComplete: () => c.remove()
+    });
+  }
+  function shoot(x, y) {
+    const g = GUNS[gun];
+    const now = performance.now();
+    if (g.pump) {  // the shotgun has to be pumped between shots
+      if (now - lastPump < g.pump) return;
+      lastPump = now;
+    }
+    play(gun);
+    const spots = gun === "shotgun"
+      ? Array.from({ length: g.pellets }, () => { const a = Math.random() * Math.PI * 2, r = Math.sqrt(Math.random()) * g.spread; return [x + Math.cos(a) * r, y + Math.sin(a) * r]; })
+      : [gun === "auto" ? [x + gsap.utils.random(-5, 5), y + gsap.utils.random(-5, 5)] : [x, y]];
+    let hit = false;
+    spots.forEach(([sx, sy]) => { hole(sx, sy, g.hole); hit = hit || hitsClay(sx, sy); });
+    if (hit) breakClay();
+    if (!moving) return;
+    gsap.fromTo(gunEl, { scale: g.kick, rotate: g.spin }, { scale: 1, rotate: 0, duration: gun === "auto" ? .12 : .45, ease: "expo.out", overwrite: true });
+    gsap.fromTo(flash, { scale: .3, opacity: 1 }, { scale: gun === "shotgun" ? 2.4 : 1.6, opacity: 0, duration: .4, ease: "expo.out", overwrite: true });
+    if (gun !== "shotgun") casing(x, y);
+  }
+
+  const offLimits = e => e.target.closest(".hud, .toggles");
+  let px = 0, py = 0, autoTimer = null, lastType = "mouse";
+  const stopAuto = () => { clearInterval(autoTimer); autoTimer = null; };
+  if (hasGsap) {
+    hud.hidden = false;
+    // a mouse fires on press (and keeps firing on full auto); a finger fires on a tap, so scrolling never shoots
+    addEventListener("pointerdown", e => {
+      lastType = e.pointerType;
+      if (e.pointerType === "touch" || e.button !== 0 || offLimits(e)) return;
+      px = e.clientX; py = e.clientY;
+      shoot(px, py);
+      if (gun === "auto") {
+        if (!e.target.closest("a, button")) e.preventDefault();  // no text selection while holding
+        stopAuto();
+        autoTimer = setInterval(() => shoot(px, py), GUNS.auto.every);
+      }
+    });
+    addEventListener("pointermove", e => { px = e.clientX; py = e.clientY; }, { passive: true });
+    addEventListener("pointerup", stopAuto);
+    addEventListener("pointercancel", stopAuto);
+    addEventListener("blur", stopAuto);
+    addEventListener("click", e => {
+      if (lastType !== "touch" || offLimits(e)) return;
+      if (gun === "auto") [0, 1, 2].forEach(i => setTimeout(() => shoot(e.clientX, e.clientY), i * GUNS.auto.every));
+      else shoot(e.clientX, e.clientY);
+    });
+  }
+
+  // the cursor is a crosshair: it locks on to anything you can click and kicks when you fire
+  if (fine && hasGsap) {
+    root.classList.add("aim");
+    const tag = ret.querySelector(".tag");
+    const xTo = gsap.quickTo(ret, "x", { duration: .16, ease: "power3" }), yTo = gsap.quickTo(ret, "y", { duration: .16, ease: "power3" });
+    addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
+      ret.classList.add("on");
+      if (moving) { xTo(e.clientX); yTo(e.clientY); } else gsap.set(ret, { x: e.clientX, y: e.clientY });
+    }, { passive: true });
+    document.addEventListener("mouseout", e => { if (!e.relatedTarget) { ret.classList.remove("on"); stopAuto(); } });
+    document.addEventListener("pointerover", e => {
+      const el = e.target.closest("a, button");
+      ret.classList.toggle("locked", !!el);
+      if (el) tag.textContent = el.dataset.aim || (el.tagName === "A" ? "open" : "click");
+    });
+  }
+
+  // scroll progress
+  const bar = document.getElementById("progress");
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
+  };
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  // pull! shoot the clay and it breaks into pieces; another one flies in a moment later.
+  // Shots hit it by position; the button itself only answers the keyboard (or a page without the library).
+  let hits = 0;
+  clay.addEventListener("click", e => {
+    if (hasGsap && e.detail !== 0) return;
+    play(gun);
+    breakClay();
+  });
+  function breakClay() {
+    if (clay.dataset.broken) return;
+    clay.dataset.broken = "1";
+    play("clay");
+    hits++;
+    hint.textContent = hits === 1 ? "nice shot." : hits + " for " + hits + ".";
+    if (!moving) { claySvg.style.opacity = ".25"; setTimeout(() => { claySvg.style.opacity = ""; delete clay.dataset.broken; }, 900); return; }
+    gsap.to(claySvg, { scale: 1.4, opacity: 0, duration: .15 });
+    for (let i = 0; i < 9; i++) {
+      const s = document.createElement("span");
+      s.className = "shard";
+      clay.appendChild(s);
+      gsap.to(s, {
+        physics2D: { velocity: gsap.utils.random(160, 340), angle: gsap.utils.random(-170, -10), gravity: 900 },
+        rotate: gsap.utils.random(-540, 540), opacity: 0, duration: 1.1, ease: "power2.in", onComplete: () => s.remove()
+      });
+    }
+    gsap.delayedCall(1.2, () => {
+      gsap.set(claySvg, { scale: 1, opacity: 1 });
+      gsap.fromTo(clay, { x: -200, y: 90, rotate: -35 }, { x: 0, y: 0, rotate: 0, duration: 1.1, ease: "expo.out", onComplete: () => delete clay.dataset.broken });
+    });
+  }
+
+  // copy email (links to mail apps don't work for every viewer, so the address is plain text too)
+  const copy = document.getElementById("copy");
+  copy.addEventListener("click", () => {
+    const text = document.getElementById("email").textContent;
+    const done = ok => { copy.textContent = ok ? "Copied" : "Select it"; setTimeout(() => copy.textContent = "Copy", 1600); };
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(() => done(true), () => { getSelection().selectAllChildren(document.getElementById("email")); done(false); });
+    else { getSelection().selectAllChildren(document.getElementById("email")); done(false); }
+  });
+})();
+</script>
+</body>
+</html>
